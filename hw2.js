@@ -1,43 +1,24 @@
-let flag = true;
-
-function getUserFullNamePart(value){
-    let userFullNamePart = prompt(`Введите ${value}`)
-    while (isValid(userFullNamePart) === false){
-        alert('Введите словом, не числом и не пустой строкой !')
-        userFullNamePart = prompt(`Введите ${value}`)
+function getUserInfo(value, flag){
+    if (flag === true){
+        let userInfo = prompt(`Введите ${value}`)
+        while (userInfo === NaN || userInfo === false || userInfo === '' || userInfo == +(userInfo) || userInfo === null){
+            alert('Введите словом, не числом и не пустой строкой !')
+            userInfo = prompt(`Введите ${value}`)
+        }
+        return userInfo
+    } else {
+        let userInfo = +prompt(`Введите ${value}`)
+        while (userInfo != +(userInfo) || userInfo === false || userInfo === '' || +(userInfo) <= 0 ||userInfo === null || userInfo === NaN){
+            alert('Возвраст должен быть введен числом и быть более 0 !');
+            userInfo = prompt(`Введите ${value}`)
+        }
+        return userInfo
     }
-   
-    return userFullNamePart
 }
 
 function getUserGender(){
     let userGender = confirm('Вы мужина ?')? 'мужчина' : 'женщина';
     return userGender
-}
-
-function getUserAge(){
-    let userAge = +prompt('Укажите Ваш возраст в годах');
-    while(isValid(userAge) === false){
-    alert('Возвраст должен быть введен числом и быть более 0 !');
-    userAge = +prompt('Укажите Ваш возраст в годах');
-    }
-    return userAge
-}
-
-function isValid(value){
-    if (flag === true){
-        if (value === NaN || value === false || value === '' || value == +(value) || value === null){
-            return false;
-        } else {
-            return true;
-        }
-    } else {
-        if (value != +(value) || value === false || value === '' || +(value) <= 0 ||value === null || value === NaN){
-            return false;
-        } else {
-            return true;
-        }
-    }
 }
 
 function isPens(calluserAge, calluserGender){
@@ -51,12 +32,11 @@ function isPens(calluserAge, calluserGender){
 }
 
 function app(){
-    let callUserLastName = getUserFullNamePart('фамилию');
-    let callUserName = getUserFullNamePart('имя');
-    let callUserSurName = getUserFullNamePart('отчество');
+    let callUserLastName = getUserInfo('фамилию', true);
+    let callUserName = getUserInfo('имя', true);
+    let callUserSurName = getUserInfo('отчество', true);  
     let callUserGender = getUserGender();
-    flag = false;
-    let callUserAge = getUserAge();
+    let callUserAge = getUserInfo('возраст', false);
     let callPens = isPens(callUserAge, callUserGender);
     showInfo(callUserLastName, callUserName, callUserSurName, callUserGender, callUserAge, callPens);
 }
@@ -69,7 +49,6 @@ alert(`Ваше ФИО: ${callUserLastName} ${callUserName} ${callUserSurName}
 Ваш пол: ${callUserGender}
 Вы на пенсии: ${callPens}`);
 }
-
 
 app();
 
