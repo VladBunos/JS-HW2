@@ -1,10 +1,12 @@
+let flag = true;
 
-function getUserFullName(value){
+function getUserFullNamePart(value){
     let userFullNamePart = prompt(`Введите ${value}`)
     while (isValid(userFullNamePart) === false){
         alert('Введите словом, не числом и не пустой строкой !')
         userFullNamePart = prompt(`Введите ${value}`)
     }
+   
     return userFullNamePart
 }
 
@@ -15,7 +17,7 @@ function getUserGender(){
 
 function getUserAge(){
     let userAge = +prompt('Укажите Ваш возраст в годах');
-    for(; isAgeValid(userAge) === false; ){
+    while(isValid(userAge) === false){
     alert('Возвраст должен быть введен числом и быть более 0 !');
     userAge = +prompt('Укажите Ваш возраст в годах');
     }
@@ -23,18 +25,18 @@ function getUserAge(){
 }
 
 function isValid(value){
-    if (value === NaN || value === false || value === '' || value == +(value) || value === null){
-        return false;
+    if (flag === true){
+        if (value === NaN || value === false || value === '' || value == +(value) || value === null){
+            return false;
+        } else {
+            return true;
+        }
     } else {
-        return true;
-    }
-}
-
-function isAgeValid(age){
-    if (age != +(age) || age === false || age === '' || +(age) <= 0 ||age === null || age === NaN){
-        return false;
-    } else {
-        return true;
+        if (value != +(value) || value === false || value === '' || +(value) <= 0 ||value === null || value === NaN){
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
@@ -49,15 +51,15 @@ function isPens(calluserAge, calluserGender){
 }
 
 function app(){
-    let callUserLastName = getUserFullName('фамилию');
-    let callUserName = getUserFullName('имя');
-    let callUserSurName = getUserFullName('отчество');
+    let callUserLastName = getUserFullNamePart('фамилию');
+    let callUserName = getUserFullNamePart('имя');
+    let callUserSurName = getUserFullNamePart('отчество');
     let callUserGender = getUserGender();
+    flag = false;
     let callUserAge = getUserAge();
     let callPens = isPens(callUserAge, callUserGender);
     showInfo(callUserLastName, callUserName, callUserSurName, callUserGender, callUserAge, callPens);
 }
-
 
 function showInfo(callUserLastName, callUserName, callUserSurName,  callUserGender, callUserAge, callPens){
 alert(`Ваше ФИО: ${callUserLastName} ${callUserName} ${callUserSurName} 
@@ -70,5 +72,4 @@ alert(`Ваше ФИО: ${callUserLastName} ${callUserName} ${callUserSurName}
 
 
 app();
-
 
