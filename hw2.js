@@ -1,28 +1,19 @@
-function getuserFullName(){
-    let userLastName = prompt('Введите фамилию')
-    for (; isValid(userLastName) === false; ){
+
+function getUserFullName(value){
+    let userFullNamePart = prompt(`Введите ${value}`)
+    while (isValid(userFullNamePart) === false){
         alert('Введите словом, не числом и не пустой строкой !')
-        userLastName = prompt('Введите фамилию')
+        userFullNamePart = prompt(`Введите ${value}`)
     }
-    let userName = prompt('Введите имя')
-    for (; isValid(userName) === false; ){
-        alert('Введите словом, не числом и не пустой строкой !')
-        userName = prompt('Введите имя')
-    }
-    let userSurName = prompt('Введите отчество')
-    for (; isValid(userSurName) === false; ){
-        alert('Введите словом, не числом и не пустой строкой !')
-        userSurName = prompt('Введите отчество')
-    }
-    return ([userLastName, userName, userSurName]);
+    return userFullNamePart
 }
 
-function getuserGender(){
+function getUserGender(){
     let userGender = confirm('Вы мужина ?')? 'мужчина' : 'женщина';
     return userGender
 }
 
-function getuserAge(){
+function getUserAge(){
     let userAge = +prompt('Укажите Ваш возраст в годах');
     for(; isAgeValid(userAge) === false; ){
     alert('Возвраст должен быть введен числом и быть более 0 !');
@@ -31,8 +22,8 @@ function getuserAge(){
     return userAge
 }
 
-function isValid(namePart){
-    if (namePart === NaN || namePart === false || namePart === '' || namePart == +(namePart) || namePart === null){
+function isValid(value){
+    if (value === NaN || value === false || value === '' || value == +(value) || value === null){
         return false;
     } else {
         return true;
@@ -57,23 +48,25 @@ function isPens(calluserAge, calluserGender){
         }
 }
 
-function showInfo(calluserFullName, calluserGender, calluserAge, callPens){
-alert(`Ваше ФИО: ${calluserFullName[0]} ${calluserFullName[1]} ${calluserFullName[2]}
-Ваш возраст в годах: ${calluserAge}
-Ваш возраст в днях: ${calluserAge * 365}
-Ваш возраст через 5 лет: ${calluserAge + 5}
-Ваш пол: ${calluserGender}
+function app(){
+    let callUserLastName = getUserFullName('фамилию');
+    let callUserName = getUserFullName('имя');
+    let callUserSurName = getUserFullName('отчество');
+    let callUserGender = getUserGender();
+    let callUserAge = getUserAge();
+    let callPens = isPens(callUserAge, callUserGender);
+    showInfo(callUserLastName, callUserName, callUserSurName, callUserGender, callUserAge, callPens);
+}
+
+
+function showInfo(callUserLastName, callUserName, callUserSurName,  callUserGender, callUserAge, callPens){
+alert(`Ваше ФИО: ${callUserLastName} ${callUserName} ${callUserSurName} 
+Ваш возраст в годах: ${callUserAge}
+Ваш возраст в днях: ${callUserAge * 365}
+Ваш возраст через 5 лет: ${callUserAge + 5}
+Ваш пол: ${callUserGender}
 Вы на пенсии: ${callPens}`);
 }
-
-function app(){
-let calluserFullName = getuserFullName();
-let calluserGender = getuserGender();
-let calluserAge = getuserAge();
-let callPens = isPens(calluserAge, calluserGender);
-showInfo(calluserFullName, calluserGender, calluserAge, callPens);
-}
-
 
 
 app();
